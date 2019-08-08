@@ -12,8 +12,12 @@ echo "Deleting the namespace <namespace>"
 oc project <namespace>
 oc delete --all all,secret,pvc > /dev/null
 oc get ns <namespace> -o json > tempfile
-sed -i '' '/"kubernetes"/d' ./tempfile
+sed -i '' '/"kubernetes"/d' ./tempfile 
 curl --silent -H "Content-Type: application/json" -X PUT --data-binary @tempfile http://127.0.0.1:8001/api/v1/namespaces/<namespace>/finalize
 ```
 
 Now it's gone :rocket: :racehorse: :satisfied:
+
+
+
+http://127.0.0.1:8001 可以通过 -v=10 获得，另外 curl 需要带上 key和 cert做为身份验证！！！！
